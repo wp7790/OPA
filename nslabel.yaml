@@ -1,0 +1,16 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sRequiredLabels
+metadata:
+  name: all-must-have-owner
+spec:
+  match:
+    kinds:
+      - apiGroups: ["apps",""]
+        kinds: ["Deployment","Pod","StatefulSet"] 
+    excludedNamespaces: ["kube-system"]
+        
+  parameters:
+    message: "All deployments must have an `owner` label that points to your company username"
+    labels:
+      - key: owner
+        # Optional: Add
